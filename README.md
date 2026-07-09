@@ -4,10 +4,8 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/nexuscalc.svg)](https://pypi.org/project/nexuscalc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI downloads](https://img.shields.io/pypi/dm/nexuscalc.svg)](https://pypi.org/project/nexuscalc/)
-[![Made with ☕](https://img.shields.io/badge/Made%20with-☕-orange.svg)](https://github.com/lightbulb-experiments/nexuscalc)
-[![Built with ❤️](https://img.shields.io/badge/Built%20with-❤️-red.svg)](https://github.com/lightbulb-experiments/nexuscalc)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/lightbulb-experiments/nexuscalc)
+[![Made with ☕](https://img.shields.io/badge/Made%20with-☕-orange.svg)](https://github.com/AfifaM9/nexuscalc)
+[![Built with ❤️](https://img.shields.io/badge/Built%20with-❤️-red.svg)](https://github.com/AfifaM9/nexuscalc)
 
 A powerful interactive CLI calculator that just works.
 
@@ -56,13 +54,6 @@ Or after installation, just run:
 nexuscalc
 ```
 
-### ⚠️ Deprecated (will be removed in 2.0.0)
-
-```python
-from nexuscalc import calculate
-calculate()  # Deprecated - use start_calc() instead
-```
-
 ### Quick Start
 
 ```python
@@ -74,20 +65,12 @@ start_calc()
 from nexuscalc import nexuscalc
 nexuscalc.start_calc()
 
-# Method 3: Deprecated (will be removed in 2.0.0)
-from nexuscalc import calculate
-calculate()  # ⚠️ Deprecated
-
-# Method 4: Deprecated (will be removed in 2.0.0)
-from nexuscalc import nexuscalc
-nexuscalc.calculate()  # ⚠️ Deprecated
-
-# Method 5: Using the class (advanced)
+# Method 3: Using the class (advanced)
 from nexuscalc import NexusCalc
 calc = NexusCalc()
 calc.run()
 
-# Method 6: Show help
+# Method 4: Show help
 from nexuscalc import nexuscalc
 nexuscalc.help()
 ```
@@ -181,12 +164,12 @@ NEXUSCALC > hello
 | Calculation Counter | ✅ | ❌ |
 | Keyboard Interrupts | ✅ | ❌ |
 | Beautiful Output | ✅ | ❌ |
-| Deprecation Warnings | ✅ | ❌ |
 
 ## 📋 Version History
 
 | Version | Changes |
 |---------|---------|
+| **2.0.0** | Removed `calculate()`, `start_calc()` is now the only entry point |
 | **1.1.0** | Added `start_calc()`, deprecated `calculate()` |
 | **1.0.0** | Initial stable release |
 

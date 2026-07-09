@@ -7,7 +7,7 @@ import re
 # Read version from __init__.py
 with open("src/nexuscalc/__init__.py", "r", encoding="utf-8") as f:
     version_match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', f.read())
-    version = version_match.group(1) if version_match else "1.1.0"
+    version = version_match.group(1) if version_match else "2.0.0"
 
 # Read README
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -21,10 +21,10 @@ setup(
     description="🔢 A chill CLI calculator that just works",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/lightbulb-experiments/nexuscalc",
+    url="https://github.com/AfifaM9/nexuscalc",
     project_urls={
-        "Bug Reports": "https://github.com/lightbulb-experiments/nexuscalc/issues",
-        "Source": "https://github.com/lightbulb-experiments/nexuscalc",
+        "Bug Reports": "https://github.com/AfifaM9/nexuscalc/issues",
+        "Source": "https://github.com/AfifaM9/nexuscalc",
         "PyPI": "https://pypi.org/project/nexuscalc/",
     },
     package_dir={"": "src"},
@@ -47,7 +47,7 @@ setup(
     python_requires=">=3.7",
     entry_points={
         "console_scripts": [
-            "nexuscalc=nexuscalc:start_calc",  # changed to start_calc
+            "nexuscalc=nexuscalc:start_calc",
         ],
     },
     keywords="calculator, math, arithmetic, cli, interactive, terminal, python",

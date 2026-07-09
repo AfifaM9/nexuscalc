@@ -1,20 +1,10 @@
 """NexusCalc - A powerful calculator application."""
 
 import sys
-import warnings
 from .core.calculator import NexusCalc
 
-__version__ = "1.1.0"
-__all__ = ["NexusCalc", "calculate", "start_calc", "nexuscalc", "help"]
-
-def calculate():
-    """Main entry point for the calculator (deprecated)."""
-    warnings.warn(
-        "calculate() is deprecated and will be removed in 2.0.0. Use start_calc() instead.",
-        DeprecationWarning,
-        stacklevel=2
-    )
-    return start_calc()
+__version__ = "2.0.0"
+__all__ = ["NexusCalc", "start_calc", "nexuscalc", "help"]
 
 def start_calc():
     """Main entry point for the calculator (recommended)."""
@@ -38,16 +28,6 @@ def show_help():
 
 # Wrapper class for compatibility
 class nexuscalc:
-    @staticmethod
-    def calculate():
-        """Deprecated - use start_calc() instead."""
-        warnings.warn(
-            "nexuscalc.nexuscalc.calculate() is deprecated and will be removed in 2.0.0. Use start_calc() instead.",
-            DeprecationWarning,
-            stacklevel=2
-        )
-        return start_calc()
-    
     @staticmethod
     def start_calc():
         """Main entry point for the calculator (recommended)."""
