@@ -13,22 +13,29 @@ class NexusCalc:
     def __init__(self):
         self.operations = Operations()
         self.running = True
+        self.calculation_count = 0
         self.menu_options = {
-            '1': ('Add', self.operations.add),
-            '2': ('Subtract', self.operations.subtract),
-            '3': ('Multiply', self.operations.multiply),
-            '4': ('Divide', self.operations.divide),
-            '5': ('Floor', self.operations.floor_divide),
+            '1': ('Add', self.operations.add, '+'),
+            '2': ('Subtract', self.operations.subtract, '-'),
+            '3': ('Multiply', self.operations.multiply, '×'),
+            '4': ('Divide', self.operations.divide, '÷'),
+            '5': ('Floor', self.operations.floor_divide, '//'),
+            '6': ('Modulo', self.operations.modulo, '%'),
         }
         # Regex patterns for quit commands
         self.quit_patterns = [
-            re.compile(r'^[Qq]$'),           # q or Q
-            re.compile(r'^[Qq][Uu][Ii][Tt]$'), # quit in any case
-            re.compile(r'^6$'),               # number 6
+            re.compile(r'^[Qq]$'),
+            re.compile(r'^[Qq][Uu][Ii][Tt]$'),
+            re.compile(r'^7$'),  # 7 is now quit
+        ]
+        # Help patterns
+        self.help_patterns = [
+            re.compile(r'^[Hh]$'),
+            re.compile(r'^[Hh][Ee][Ll][Pp]$'),
+            re.compile(r'^\?$'),
         ]
     
     def is_quit_command(self, text):
-        """Check if the input matches any quit pattern."""
         if not text:
             return False
         text = text.strip()
@@ -37,32 +44,107 @@ class NexusCalc:
                 return True
         return False
     
+    def is_help_command(self, text):
+        if not text:
+            return False
+        text = text.strip()
+        for pattern in self.help_patterns:
+            if pattern.match(text):
+                return True
+        return False
+    
+    def show_help(self):
+        print("\n" + "="*60)
+        print("📖 NEXUSCALC - Help & Documentation")
+        print("="*60)
+        print("\n🔢 WHAT IS NEXUSCALC?")
+        print("-"*60)
+        print("  A powerful interactive calculator for the command line.")
+        print("  Perfect for quick calculations and learning Python.")
+        print()
+        print("📋 AVAILABLE OPERATIONS:")
+        print("-"*60)
+        print("  1. Add ➕        - Add two numbers")
+        print("  2. Subtract ➖   - Subtract second from first")
+        print("  3. Multiply ✖️   - Multiply two numbers")
+        print("  4. Divide ➗     - Divide first by second")
+        print("  5. Floor 🏠     - Floor division (integer result)")
+        print("  6. Modulo 🔢    - Remainder after division")
+        print("  7. Quit 🚪      - Exit calculator")
+        print()
+        print("🎮 HOW TO USE:")
+        print("-"*60)
+        print("  1. Choose an operation (1-7)")
+        print("  2. Enter your first number")
+        print("  3. Enter your second number")
+        print("  4. See the result!")
+        print()
+        print("⌨️  SPECIAL COMMANDS:")
+        print("-"*60)
+        print("  • 'h' or 'help' or '?'  - Show this help screen")
+        print("  • 'q' or 'quit' or '7'  - Exit the calculator")
+        print("  • Ctrl+C                 - Cancel current operation")
+        print("  • Ctrl+D                 - Exit calculator")
+        print()
+        print("📊 FEATURES:")
+        print("-"*60)
+        print("  ✅ Accurate floating-point calculations")
+        print("  ✅ Division by zero error handling")
+        print("  ✅ Modulo operation")
+        print("  ✅ Calculation counter")
+        print("  ✅ Clean result formatting")
+        print("  ✅ Keyboard interrupt handling")
+        print()
+        print("📦 INSTALLATION:")
+        print("-"*60)
+        print("  python -m pip install nexuscalc")
+        print()
+        print("🚀 QUICK START:")
+        print("-"*60)
+        print("  from nexuscalc import start_calc")
+        print("  start_calc()")
+        print()
+        print("🌐 MORE INFO:")
+        print("-"*60)
+        print("  PyPI: https://pypi.org/project/nexuscalc/")
+        print("  GitHub: https://github.com/AfifaM9/nexuscalc")
+        print("="*60)
+    
     def run(self):
-        """Run the calculator main loop."""
         try:
             while self.running:
                 try:
                     self.show_menu()
-                    choice = self.get_input("Use 1-5").strip().lower()
+                    choice = self.get_input("Use 1-7").strip()
                     
-                    # Check if it's a quit command using regex
+                    if self.is_help_command(choice):
+                        self.show_help()
+                        input("\nPress Enter to continue...")
+                        continue
+                    
                     if self.is_quit_command(choice):
-                        print("\n👋 Goodbye! Thanks for using NexusCalc!")
+                        self.show_goodbye()
                         self.running = False
                         break
                     
                     if choice not in self.menu_options:
-                        print("❌ Invalid choice. Please select 1-5 or 6/q/quit to exit.")
+                        print("❌ Invalid choice. Please select 1-7, h/help, or q/quit.")
                         continue
                     
-                    operation_name, operation_func = self.menu_options[choice]
+                    operation_name, operation_func, operation_symbol = self.menu_options[choice]
                     
                     try:
                         num1 = self.get_number("Enter first number")
                         num2 = self.get_number("Enter second number")
                         
                         result = operation_func(num1, num2)
-                        print(f"\n✅ Result: {format_result(result)}")
+                        self.calculation_count += 1
+                        
+                        print(f"\n{'='*50}")
+                        print(f"📊 Calculation #{self.calculation_count}")
+                        print(f"{'='*50}")
+                        print(f"  {format_result(num1)} {operation_symbol} {format_result(num2)} = {format_result(result)}")
+                        print(f"{'='*50}")
                         
                     except DivisionByZeroError as e:
                         print(f"\n❌ Division Error: {e}")
@@ -87,17 +169,21 @@ class NexusCalc:
                     break
                 
         except KeyboardInterrupt:
-            print("\n\n👋 Goodbye! Calculator exited.")
+            self.show_goodbye()
             sys.exit(0)
         except Exception as e:
             print(f"\n❌ Fatal error: {e}")
             sys.exit(1)
     
     def show_menu(self):
-        """Display the main menu."""
         print("\n" + "="*50)
         print("🔢 NEXUSCALC - Powerful Calculator")
         print("="*50)
+        
+        if self.calculation_count > 0:
+            print(f"📊 Calculations performed: {self.calculation_count}")
+            print("-"*50)
+        
         print("\nWhat are you trying to calculate?")
         print("List:")
         print()
@@ -106,14 +192,23 @@ class NexusCalc:
         print("3. Multiply ✖️")
         print("4. Divide ➗")
         print("5. Floor 🏠")
-        print("6. Quit 🚪")
+        print("6. Modulo 🔢")
+        print("7. Quit 🚪")
         print()
+        print("💡 Type 'h' or 'help' for help")
         print("💡 Press Ctrl+C to cancel operation")
-        print("💡 Type '6', 'q', 'Q', 'quit', or 'QUIT' to exit")
+        print("💡 Type '7', 'q', 'Q', 'quit', or 'QUIT' to exit")
         print("-"*50)
     
+    def show_goodbye(self):
+        print("\n" + "="*50)
+        print("👋 Goodbye! Thanks for using NexusCalc!")
+        print("="*50)
+        if self.calculation_count > 0:
+            print(f"📊 You performed {self.calculation_count} calculation(s)")
+        print("="*50)
+    
     def get_input(self, prompt):
-        """Get user input with NEXUSCALC > prompt."""
         try:
             return input(f"{prompt}\nNEXUSCALC > ")
         except KeyboardInterrupt:
@@ -124,10 +219,16 @@ class NexusCalc:
             raise
     
     def get_number(self, prompt):
-        """Get and validate a number from user input."""
         while True:
             try:
                 user_input = self.get_input(prompt)
+                if self.is_help_command(user_input):
+                    self.show_help()
+                    input("\nPress Enter to continue...")
+                    continue
+                if self.is_quit_command(user_input):
+                    print("\n⚠️ Quit requested during number input.")
+                    raise KeyboardInterrupt
                 return validate_number(user_input)
             except CalculatorError as e:
                 print(f"❌ Error: {e}")
