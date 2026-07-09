@@ -18,9 +18,10 @@ A powerful interactive CLI calculator that just works.
 - ✖️ **Multiplication** - Multiply two numbers
 - ➗ **Division** - Divide first by second (with zero division error handling)
 - 🏠 **Floor** - Floor division (integer result)
+- 🔢 **Modulo** - Remainder after division
 - 🔢 **Floating-point precision** - 0.1 + 0.2 = 0.3 (we fixed it!)
 - 🛡️ **Error handling** - Division by zero? We got you
-- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `6`
+- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `7`
 - 📊 **Calculation counter** - Track your math history
 - 🎨 **Beautiful formatting** - Clean, color-coded output
 - 💡 **Built-in help** - Type `h` or `help` for documentation
@@ -81,9 +82,12 @@ nexuscalc.help()
 from nexuscalc.core.operations import Operations
 
 ops = Operations()
-result = ops.add(5, 3)  # Returns 8
-result = ops.divide(10, 2)  # Returns 5.0
-result = ops.floor_divide(10, 3)  # Returns 3
+result = ops.add(5, 3)       # Returns 8
+result = ops.subtract(10, 4) # Returns 6
+result = ops.multiply(3, 4)  # Returns 12
+result = ops.divide(10, 2)   # Returns 5.0
+result = ops.floor_divide(10, 3) # Returns 3
+result = ops.modulo(10, 3)   # Returns 1
 ```
 
 ## 🎮 Interactive Commands
@@ -92,9 +96,14 @@ While using the calculator, you can type:
 
 | Command | Action |
 |---------|--------|
-| `1-5` | Select operation |
+| `1` | Add ➕ |
+| `2` | Subtract ➖ |
+| `3` | Multiply ✖️ |
+| `4` | Divide ➗ |
+| `5` | Floor 🏠 |
+| `6` | Modulo 🔢 |
+| `7`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
 | `h`, `help`, `?` | Show help |
-| `q`, `Q`, `quit`, `QUIT`, `6` | Exit calculator |
 | `Ctrl+C` | Cancel current operation |
 | `Ctrl+D` | Exit calculator |
 
@@ -116,16 +125,21 @@ start_calc()
 # 3. Multiply ✖️
 # 4. Divide ➗
 # 5. Floor 🏠
-# 6. Quit 🚪
+# 6. Modulo 🔢
+# 7. Quit 🚪
 # 
-# Use 1-5
-# NEXUSCALC > 1
+# Use 1-7
+# NEXUSCALC > 6
 # Enter first number
-# NEXUSCALC > 0.1
+# NEXUSCALC > 10
 # Enter second number
-# NEXUSCALC > 0.2
+# NEXUSCALC > 3
 # 
-# ✅ Result: 0.3
+# ==================================================
+# 📊 Calculation #1
+# ==================================================
+#   10 % 3 = 1
+# ==================================================
 ```
 
 ## 🛡️ Error Handling
@@ -164,11 +178,13 @@ NEXUSCALC > hello
 | Calculation Counter | ✅ | ❌ |
 | Keyboard Interrupts | ✅ | ❌ |
 | Beautiful Output | ✅ | ❌ |
+| Modulo Operation | ✅ | ⚠️ |
 
 ## 📋 Version History
 
 | Version | Changes |
 |---------|---------|
+| **2.1.0** | Added Modulo operation, Quit moved to 7 |
 | **2.0.0** | Removed `calculate()`, `start_calc()` is now the only entry point |
 | **1.1.0** | Added `start_calc()`, deprecated `calculate()` |
 | **1.0.0** | Initial stable release |
