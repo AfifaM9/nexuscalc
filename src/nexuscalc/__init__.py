@@ -3,7 +3,7 @@
 import sys
 from .core.calculator import NexusCalc
 
-__version__ = "2.5.0"
+__version__ = "2.6.0"
 __all__ = ["NexusCalc", "start_calc", "nexuscalc", "help"]
 
 def start_calc():

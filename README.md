@@ -20,9 +20,10 @@ A powerful interactive CLI calculator that just works.
 - 🏠 **Floor** - Floor division (integer result)
 - 🔢 **Modulo** - Remainder after division
 - ⚡ **Exponent** - Raise first number to the power of second
+- √ **Square Root** - Square root of a number
 - 🔢 **Floating-point precision** - 0.1 + 0.2 = 0.3 (we fixed it!)
 - 🛡️ **Error handling** - Division by zero? We got you
-- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `8`
+- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `9`
 - 📊 **Calculation counter** - Track your math history
 - 🎨 **Beautiful formatting** - Clean, color-coded output
 - 💡 **Built-in help** - Type `h` or `help` for documentation
@@ -56,27 +57,6 @@ Or after installation, just run:
 nexuscalc
 ```
 
-### Quick Start
-
-```python
-# Method 1: Recommended - Direct function
-from nexuscalc import start_calc
-start_calc()
-
-# Method 2: Recommended - Using wrapper
-from nexuscalc import nexuscalc
-nexuscalc.start_calc()
-
-# Method 3: Using the class (advanced)
-from nexuscalc import NexusCalc
-calc = NexusCalc()
-calc.run()
-
-# Method 4: Show help
-from nexuscalc import nexuscalc
-nexuscalc.help()
-```
-
 ### Programmatic Usage
 
 ```python
@@ -94,6 +74,7 @@ result = ops.divide(10, 2)       # Returns 5.0
 result = ops.floor_divide(10, 3) # Returns 3
 result = ops.modulo(10, 3)       # Returns 1
 result = ops.exponent(2, 3)      # Returns 8 (2^3)
+result = ops.square_root(16)     # Returns 4.0 (√16)
 ```
 
 ## 🎮 Interactive Commands
@@ -109,7 +90,8 @@ While using the calculator, you can type:
 | `5` | Floor 🏠 |
 | `6` | Modulo 🔢 |
 | `7` | Exponent ⚡ |
-| `8`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
+| `8` | Square Root √ |
+| `9`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
 | `h`, `help`, `?` | Show help |
 | `Ctrl+C` | Cancel current operation |
 | `Ctrl+D` | Exit calculator |
@@ -134,19 +116,18 @@ start_calc()
 # 5. Floor 🏠
 # 6. Modulo 🔢
 # 7. Exponent ⚡
-# 8. Quit 🚪
+# 8. Square Root √
+# 9. Quit 🚪
 # 
-# Use 1-8
-# NEXUSCALC > 7
-# Enter first number
-# NEXUSCALC > 2
-# Enter second number
-# NEXUSCALC > 3
+# Use 1-9
+# NEXUSCALC > 8
+# Enter a number
+# NEXUSCALC > 16
 # 
 # ==================================================
 # 📊 Calculation #1
 # ==================================================
-#   2 ^ 3 = 8
+#   √16 = 4.0
 # ==================================================
 ```
 
@@ -155,6 +136,13 @@ start_calc()
 NexusCalc handles errors gracefully:
 
 ```python
+# Square root of negative number
+NEXUSCALC > 8
+Enter a number
+NEXUSCALC > -16
+
+❌ Error: Cannot take square root of a negative number!
+
 # Division by zero
 NEXUSCALC > 4
 Enter first number
@@ -164,36 +152,14 @@ NEXUSCALC > 0
 
 ❌ Division Error: Cannot divide by zero!
 💡 Hint: You cannot divide by zero. Please try a different number.
-
-# Invalid input
-NEXUSCALC > 1
-Enter first number
-NEXUSCALC > hello
-
-❌ Error: 'hello' is not a valid number
-💡 Please try again with a valid number.
 ```
-
-## 📊 Why NexusCalc?
-
-| Feature | NexusCalc | Other Calculators |
-|---------|-----------|-------------------|
-| CLI Interface | ✅ | ❌ |
-| Error Handling | ✅ | ⚠️ |
-| Regex Quit Patterns | ✅ | ❌ |
-| Floating Point Precision | ✅ | ⚠️ |
-| Built-in Help | ✅ | ❌ |
-| Calculation Counter | ✅ | ❌ |
-| Keyboard Interrupts | ✅ | ❌ |
-| Beautiful Output | ✅ | ❌ |
-| Modulo Operation | ✅ | ⚠️ |
-| Exponent Operation | ✅ | ⚠️ |
 
 ## 📋 Version History
 
 | Version | Changes |
 |---------|---------|
-| **2.5.0** | ✅ **STABLE** - Added Exponent, Quit moved to 8 |
+| **2.6.0** | ✅ **STABLE** - Added Square Root, Quit moved to 9 |
+| **2.5.0** | ✅ STABLE - Added Exponent, Quit moved to 8 |
 | **2.1.0** | ✅ STABLE - Added Modulo, Quit moved to 7 |
 | **2.0.0** | ✅ STABLE - Removed `calculate()`, `start_calc()` is the only entry point |
 | **1.1.0** | ✅ STABLE - Added `start_calc()`, deprecated `calculate()` |
@@ -213,31 +179,6 @@ Run tests with coverage:
 python -m pytest tests/ --cov=src/nexuscalc
 ```
 
-## 📁 Project Structure
-
-```
-nexuscalc/
-├── src/nexuscalc/
-│   ├── core/          # Core calculator logic
-│   ├── parsers/       # Expression parsing
-│   ├── evaluator/     # Expression evaluation
-│   ├── utils/         # Utilities and helpers
-│   └── exceptions/    # Custom exceptions
-├── tests/             # Unit tests
-├── examples/          # Usage examples
-└── setup.py          # Package setup
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 MIT License - see the [LICENSE](LICENSE) file for details.
@@ -245,21 +186,6 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 ## 👤 Author
 
 **Light Bulb Experiments** © 2026
-
-## 🙏 Acknowledgments
-
-- Built with ☕ and ❤️
-- Inspired by the need for a simple, powerful CLI calculator
-- Thanks to all users who made this better
-
-## ⭐ Show Your Support
-
-If you find NexusCalc useful, please consider:
-
-- ⭐ Starring the repository on GitHub
-- 🐛 Reporting issues
-- 💡 Suggesting features
-- 🔧 Contributing code
 
 ---
 

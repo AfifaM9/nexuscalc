@@ -2,6 +2,7 @@
 
 import sys
 import re
+import math
 from ..core.operations import Operations
 from ..utils.validators import validate_number
 from ..utils.formatters import format_result
@@ -22,12 +23,13 @@ class NexusCalc:
             '5': ('Floor', self.operations.floor_divide, '//'),
             '6': ('Modulo', self.operations.modulo, '%'),
             '7': ('Exponent', self.operations.exponent, '^'),
+            '8': ('Square Root', self.operations.square_root, '√'),
         }
         # Regex patterns for quit commands
         self.quit_patterns = [
             re.compile(r'^[Qq]$'),
             re.compile(r'^[Qq][Uu][Ii][Tt]$'),
-            re.compile(r'^8$'),  # 8 is now quit
+            re.compile(r'^9$'),  # 9 is now quit
         ]
         # Help patterns
         self.help_patterns = [
@@ -72,19 +74,19 @@ class NexusCalc:
         print("  5. Floor 🏠     - Floor division (integer result)")
         print("  6. Modulo 🔢    - Remainder after division")
         print("  7. Exponent ⚡   - Raise first to the power of second")
-        print("  8. Quit 🚪      - Exit calculator")
+        print("  8. Square Root √ - Square root of a number")
+        print("  9. Quit 🚪      - Exit calculator")
         print()
         print("🎮 HOW TO USE:")
         print("-"*60)
-        print("  1. Choose an operation (1-8)")
-        print("  2. Enter your first number")
-        print("  3. Enter your second number")
-        print("  4. See the result!")
+        print("  1. Choose an operation (1-9)")
+        print("  2. Enter your number(s)")
+        print("  3. See the result!")
         print()
         print("⌨️  SPECIAL COMMANDS:")
         print("-"*60)
         print("  • 'h' or 'help' or '?'  - Show this help screen")
-        print("  • 'q' or 'quit' or '8'  - Exit the calculator")
+        print("  • 'q' or 'quit' or '9'  - Exit the calculator")
         print("  • Ctrl+C                 - Cancel current operation")
         print("  • Ctrl+D                 - Exit calculator")
         print()
@@ -94,6 +96,7 @@ class NexusCalc:
         print("  ✅ Division by zero error handling")
         print("  ✅ Modulo operation")
         print("  ✅ Exponent operation")
+        print("  ✅ Square root operation")
         print("  ✅ Calculation counter")
         print("  ✅ Clean result formatting")
         print("  ✅ Keyboard interrupt handling")
@@ -118,7 +121,7 @@ class NexusCalc:
             while self.running:
                 try:
                     self.show_menu()
-                    choice = self.get_input("Use 1-8").strip()
+                    choice = self.get_input("Use 1-9").strip()
                     
                     if self.is_help_command(choice):
                         self.show_help()
@@ -131,23 +134,35 @@ class NexusCalc:
                         break
                     
                     if choice not in self.menu_options:
-                        print("❌ Invalid choice. Please select 1-8, h/help, or q/quit.")
+                        print("❌ Invalid choice. Please select 1-9, h/help, or q/quit.")
                         continue
                     
                     operation_name, operation_func, operation_symbol = self.menu_options[choice]
                     
                     try:
-                        num1 = self.get_number("Enter first number")
-                        num2 = self.get_number("Enter second number")
-                        
-                        result = operation_func(num1, num2)
-                        self.calculation_count += 1
-                        
-                        print(f"\n{'='*50}")
-                        print(f"📊 Calculation #{self.calculation_count}")
-                        print(f"{'='*50}")
-                        print(f"  {format_result(num1)} {operation_symbol} {format_result(num2)} = {format_result(result)}")
-                        print(f"{'='*50}")
+                        if operation_name == 'Square Root':
+                            # Square root only needs one number
+                            num = self.get_number("Enter a number")
+                            result = self.operations.square_root(num)
+                            self.calculation_count += 1
+                            
+                            print(f"\n{'='*50}")
+                            print(f"📊 Calculation #{self.calculation_count}")
+                            print(f"{'='*50}")
+                            print(f"  √{format_result(num)} = {format_result(result)}")
+                            print(f"{'='*50}")
+                        else:
+                            num1 = self.get_number("Enter first number")
+                            num2 = self.get_number("Enter second number")
+                            
+                            result = operation_func(num1, num2)
+                            self.calculation_count += 1
+                            
+                            print(f"\n{'='*50}")
+                            print(f"📊 Calculation #{self.calculation_count}")
+                            print(f"{'='*50}")
+                            print(f"  {format_result(num1)} {operation_symbol} {format_result(num2)} = {format_result(result)}")
+                            print(f"{'='*50}")
                         
                     except DivisionByZeroError as e:
                         print(f"\n❌ Division Error: {e}")
@@ -197,11 +212,12 @@ class NexusCalc:
         print("5. Floor 🏠")
         print("6. Modulo 🔢")
         print("7. Exponent ⚡")
-        print("8. Quit 🚪")
+        print("8. Square Root √")
+        print("9. Quit 🚪")
         print()
         print("💡 Type 'h' or 'help' for help")
         print("💡 Press Ctrl+C to cancel operation")
-        print("💡 Type '8', 'q', 'Q', 'quit', or 'QUIT' to exit")
+        print("💡 Type '9', 'q', 'Q', 'quit', or 'QUIT' to exit")
         print("-"*50)
     
     def show_goodbye(self):

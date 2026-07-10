@@ -1,5 +1,6 @@
 """Mathematical operations with proper error handling."""
 
+import math
 from ..exceptions.calculator_errors import DivisionByZeroError, CalculatorError
 
 class Operations:
@@ -35,15 +36,20 @@ class Operations:
     
     @staticmethod
     def modulo(a, b):
-        """Modulo operation - returns remainder after division."""
         if b == 0:
             raise DivisionByZeroError("Cannot perform modulo by zero!")
         return a % b
     
     @staticmethod
     def exponent(a, b):
-        """Exponent operation - raises a to the power of b."""
         return a ** b
+    
+    @staticmethod
+    def square_root(a):
+        """Square root operation."""
+        if a < 0:
+            raise CalculatorError("Cannot take square root of a negative number!")
+        return math.sqrt(a)
     
     @staticmethod
     def safe_divide(a, b):
@@ -70,5 +76,14 @@ class Operations:
     def safe_exponent(a, b):
         try:
             return a ** b
+        except Exception:
+            return None
+    
+    @staticmethod
+    def safe_square_root(a):
+        try:
+            if a < 0:
+                return None
+            return math.sqrt(a)
         except Exception:
             return None
