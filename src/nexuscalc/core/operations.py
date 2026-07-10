@@ -62,6 +62,23 @@ class Operations:
         return a ** (1/n)
     
     @staticmethod
+    def percentage(a, b):
+        """Percentage operation - returns a% of b."""
+        return (a / 100) * b
+    
+    @staticmethod
+    def factorial(n):
+        """Factorial operation - returns n!."""
+        if n < 0:
+            raise CalculatorError("Factorial is not defined for negative numbers!")
+        if n != int(n):
+            raise CalculatorError("Factorial is only defined for integers!")
+        n = int(n)
+        if n > 100:
+            raise CalculatorError("Factorial too large to compute!")
+        return math.factorial(n)
+    
+    @staticmethod
     def safe_divide(a, b):
         try:
             return a / b
@@ -108,5 +125,21 @@ class Operations:
             if a < 0:
                 return -abs(a) ** (1/n)
             return a ** (1/n)
+        except Exception:
+            return None
+    
+    @staticmethod
+    def safe_percentage(a, b):
+        try:
+            return (a / 100) * b
+        except Exception:
+            return None
+    
+    @staticmethod
+    def safe_factorial(n):
+        try:
+            if n < 0 or n != int(n) or n > 100:
+                return None
+            return math.factorial(int(n))
         except Exception:
             return None

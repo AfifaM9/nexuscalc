@@ -11,6 +11,11 @@ A powerful interactive CLI calculator that just works.
 
 > **NexusCalc** - because sometimes you need to calculate things and your brain said "no."
 
+> [!CAUTION]
+> **Beta Version Warning**
+> This is a beta release (3.2.0-beta). Features may be unstable or change before the stable release.
+> For production use, please install the latest stable version (3.0.0).
+
 ## ✨ Features
 
 - ➕ **Addition** - Add two numbers
@@ -22,19 +27,37 @@ A powerful interactive CLI calculator that just works.
 - ⚡ **Exponent** - Raise first number to the power of second
 - √ **Square Root** - Square root of a number
 - ⁿ√ **Nth Root** - Nth root of a number
+- 🔢 **Percentage** - Calculate percentage of a number
+- ❗ **Factorial** - Factorial of a number
 - 🔢 **Floating-point precision** - 0.1 + 0.2 = 0.3 (we fixed it!)
 - 🛡️ **Error handling** - Division by zero? We got you
-- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `10`
+- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `12`
 - 📊 **Calculation counter** - Track your math history
 - 🎨 **Beautiful formatting** - Clean, color-coded output
 - 💡 **Built-in help** - Type `h` or `help` for documentation
 - 🧠 **Keyboard interrupts** - Ctrl+C gracefully handled
 
+> [!NOTE]
+> **New in 3.2.0-beta**
+> - Added Percentage operation (option 10)
+> - Added Factorial operation (option 11)
+> - Quit moved to option 12
+> - Added `readme()` function for easy documentation access
+
 ## 📦 Installation
 
+### Stable Version (Recommended)
 ```bash
 python -m pip install nexuscalc
 ```
+
+### Beta Version (For Testing)
+```bash
+python -m pip install nexuscalc==3.2.0-beta
+```
+
+> [!WARNING]
+> The beta version may contain bugs. Please report any issues on GitHub.
 
 ## 🚀 Usage
 
@@ -58,6 +81,13 @@ Or after installation, just run:
 nexuscalc
 ```
 
+### Read the README from Terminal
+
+```python
+from nexuscalc import readme
+readme()
+```
+
 ### Programmatic Usage
 
 ```python
@@ -77,6 +107,8 @@ result = ops.modulo(10, 3)       # Returns 1
 result = ops.exponent(2, 3)      # Returns 8 (2^3)
 result = ops.square_root(16)     # Returns 4.0 (√16)
 result = ops.nth_root(8, 3)      # Returns 2.0 (³√8)
+result = ops.percentage(20, 100) # Returns 20.0
+result = ops.factorial(5)        # Returns 120
 ```
 
 ## 🎮 Interactive Commands
@@ -94,18 +126,18 @@ While using the calculator, you can type:
 | `7` | Exponent ⚡ |
 | `8` | Square Root √ |
 | `9` | Nth Root ⁿ√ |
-| `10`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
+| `10` | Percentage % |
+| `11` | Factorial ! |
+| `12`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
 | `h`, `help`, `?` | Show help |
 | `Ctrl+C` | Cancel current operation |
 | `Ctrl+D` | Exit calculator |
 
 ## 📝 Examples
 
+### Percentage Example
 ```python
 from nexuscalc import start_calc
-
-# Start the calculator
-start_calc()
 
 # Example session:
 # ==================================================
@@ -121,20 +153,50 @@ start_calc()
 # 7. Exponent ⚡
 # 8. Square Root √
 # 9. Nth Root ⁿ√
-# 10. Quit 🚪
+# 10. Percentage %
+# 11. Factorial !
+# 12. Quit 🚪
 # 
-# Use 1-10
-# NEXUSCALC > 9
+# Use 1-12
+# NEXUSCALC > 10
+# Enter the percentage
+# NEXUSCALC > 20
 # Enter the number
-# NEXUSCALC > 8
-# Enter the root (n)
-# NEXUSCALC > 3
+# NEXUSCALC > 100
 # 
 # ==================================================
 # 📊 Calculation #1
 # ==================================================
-#   ³√8 = 2.0
+#   20% of 100 = 20.0
 # ==================================================
+```
+
+### Factorial Example
+```
+NEXUSCALC > 11
+Enter a number
+NEXUSCALC > 5
+
+==================================================
+📊 Calculation #2
+==================================================
+  5! = 120
+==================================================
+```
+
+### Nth Root Example
+```
+NEXUSCALC > 9
+Enter the number
+NEXUSCALC > 8
+Enter the root (n)
+NEXUSCALC > 3
+
+==================================================
+📊 Calculation #3
+==================================================
+  ³√8 = 2.0
+==================================================
 ```
 
 ## 🛡️ Error Handling
@@ -151,6 +213,13 @@ NEXUSCALC > 2
 
 ❌ Error: Cannot take even root of a negative number!
 
+# Factorial of negative number
+NEXUSCALC > 11
+Enter a number
+NEXUSCALC > -5
+
+❌ Error: Factorial is not defined for negative numbers!
+
 # Division by zero
 NEXUSCALC > 4
 Enter first number
@@ -161,6 +230,10 @@ NEXUSCALC > 0
 ❌ Division Error: Cannot divide by zero!
 💡 Hint: You cannot divide by zero. Please try a different number.
 ```
+
+> [!IMPORTANT]
+> **Factorial Limitation**
+> Factorial is only defined for non-negative integers up to 100 to prevent overflow.
 
 ## 📊 Why NexusCalc?
 
@@ -178,18 +251,25 @@ NEXUSCALC > 0
 | Exponent Operation | ✅ | ⚠️ |
 | Square Root Operation | ✅ | ⚠️ |
 | Nth Root Operation | ✅ | ❌ |
+| Percentage Operation | ✅ | ⚠️ |
+| Factorial Operation | ✅ | ⚠️ |
 
 ## 📋 Version History
 
-| Version | Changes |
-|---------|---------|
-| **3.0.0** | ✅ **STABLE** - Added Nth Root, Quit moved to 10 |
-| **2.6.0** | ✅ STABLE - Added Square Root, Quit moved to 9 |
-| **2.5.0** | ✅ STABLE - Added Exponent, Quit moved to 8 |
-| **2.1.0** | ✅ STABLE - Added Modulo, Quit moved to 7 |
-| **2.0.0** | ✅ STABLE - Removed `calculate()`, `start_calc()` is the only entry point |
-| **1.1.0** | ✅ STABLE - Added `start_calc()`, deprecated `calculate()` |
-| **1.0.0** | ✅ STABLE - Initial release |
+| Version | Status | Changes |
+|---------|--------|---------|
+| **3.2.0-beta** | 🔄 **BETA** | Added Percentage, Factorial, Quit→12 |
+| **3.0.0** | ✅ STABLE | Added Nth Root, Quit→10 |
+| **2.6.0** | ✅ STABLE | Added Square Root, Quit→9 |
+| **2.5.0** | ✅ STABLE | Added Exponent, Quit→8 |
+| **2.1.0** | ✅ STABLE | Added Modulo, Quit→7 |
+| **2.0.0** | ✅ STABLE | Removed `calculate()`, `start_calc()` only |
+| **1.1.0** | ✅ STABLE | Added `start_calc()` |
+| **1.0.0** | ✅ STABLE | Initial release |
+
+> [!CAUTION]
+> **Version 3.2.0-beta is a pre-release.**
+> Please test and report any issues before the stable release.
 
 ## 🧪 Development
 
