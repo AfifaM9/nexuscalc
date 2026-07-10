@@ -21,9 +21,10 @@ A powerful interactive CLI calculator that just works.
 - 🔢 **Modulo** - Remainder after division
 - ⚡ **Exponent** - Raise first number to the power of second
 - √ **Square Root** - Square root of a number
+- ⁿ√ **Nth Root** - Nth root of a number
 - 🔢 **Floating-point precision** - 0.1 + 0.2 = 0.3 (we fixed it!)
 - 🛡️ **Error handling** - Division by zero? We got you
-- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `9`
+- ⌨️ **Regex quit patterns** - `q`, `Q`, `quit`, `QUIT`, `10`
 - 📊 **Calculation counter** - Track your math history
 - 🎨 **Beautiful formatting** - Clean, color-coded output
 - 💡 **Built-in help** - Type `h` or `help` for documentation
@@ -75,6 +76,7 @@ result = ops.floor_divide(10, 3) # Returns 3
 result = ops.modulo(10, 3)       # Returns 1
 result = ops.exponent(2, 3)      # Returns 8 (2^3)
 result = ops.square_root(16)     # Returns 4.0 (√16)
+result = ops.nth_root(8, 3)      # Returns 2.0 (³√8)
 ```
 
 ## 🎮 Interactive Commands
@@ -91,7 +93,8 @@ While using the calculator, you can type:
 | `6` | Modulo 🔢 |
 | `7` | Exponent ⚡ |
 | `8` | Square Root √ |
-| `9`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
+| `9` | Nth Root ⁿ√ |
+| `10`, `q`, `Q`, `quit`, `QUIT` | Exit calculator |
 | `h`, `help`, `?` | Show help |
 | `Ctrl+C` | Cancel current operation |
 | `Ctrl+D` | Exit calculator |
@@ -117,17 +120,20 @@ start_calc()
 # 6. Modulo 🔢
 # 7. Exponent ⚡
 # 8. Square Root √
-# 9. Quit 🚪
+# 9. Nth Root ⁿ√
+# 10. Quit 🚪
 # 
-# Use 1-9
+# Use 1-10
+# NEXUSCALC > 9
+# Enter the number
 # NEXUSCALC > 8
-# Enter a number
-# NEXUSCALC > 16
+# Enter the root (n)
+# NEXUSCALC > 3
 # 
 # ==================================================
 # 📊 Calculation #1
 # ==================================================
-#   √16 = 4.0
+#   ³√8 = 2.0
 # ==================================================
 ```
 
@@ -136,12 +142,14 @@ start_calc()
 NexusCalc handles errors gracefully:
 
 ```python
-# Square root of negative number
-NEXUSCALC > 8
-Enter a number
-NEXUSCALC > -16
+# Even root of negative number
+NEXUSCALC > 9
+Enter the number
+NEXUSCALC > -8
+Enter the root (n)
+NEXUSCALC > 2
 
-❌ Error: Cannot take square root of a negative number!
+❌ Error: Cannot take even root of a negative number!
 
 # Division by zero
 NEXUSCALC > 4
@@ -154,11 +162,29 @@ NEXUSCALC > 0
 💡 Hint: You cannot divide by zero. Please try a different number.
 ```
 
+## 📊 Why NexusCalc?
+
+| Feature | NexusCalc | Other Calculators |
+|---------|-----------|-------------------|
+| CLI Interface | ✅ | ❌ |
+| Error Handling | ✅ | ⚠️ |
+| Regex Quit Patterns | ✅ | ❌ |
+| Floating Point Precision | ✅ | ⚠️ |
+| Built-in Help | ✅ | ❌ |
+| Calculation Counter | ✅ | ❌ |
+| Keyboard Interrupts | ✅ | ❌ |
+| Beautiful Output | ✅ | ❌ |
+| Modulo Operation | ✅ | ⚠️ |
+| Exponent Operation | ✅ | ⚠️ |
+| Square Root Operation | ✅ | ⚠️ |
+| Nth Root Operation | ✅ | ❌ |
+
 ## 📋 Version History
 
 | Version | Changes |
 |---------|---------|
-| **2.6.0** | ✅ **STABLE** - Added Square Root, Quit moved to 9 |
+| **3.0.0** | ✅ **STABLE** - Added Nth Root, Quit moved to 10 |
+| **2.6.0** | ✅ STABLE - Added Square Root, Quit moved to 9 |
 | **2.5.0** | ✅ STABLE - Added Exponent, Quit moved to 8 |
 | **2.1.0** | ✅ STABLE - Added Modulo, Quit moved to 7 |
 | **2.0.0** | ✅ STABLE - Removed `calculate()`, `start_calc()` is the only entry point |
@@ -179,6 +205,31 @@ Run tests with coverage:
 python -m pytest tests/ --cov=src/nexuscalc
 ```
 
+## 📁 Project Structure
+
+```
+nexuscalc/
+├── src/nexuscalc/
+│   ├── core/          # Core calculator logic
+│   ├── parsers/       # Expression parsing
+│   ├── evaluator/     # Expression evaluation
+│   ├── utils/         # Utilities and helpers
+│   └── exceptions/    # Custom exceptions
+├── tests/             # Unit tests
+├── examples/          # Usage examples
+└── setup.py          # Package setup
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
 ## 📄 License
 
 MIT License - see the [LICENSE](LICENSE) file for details.
@@ -186,6 +237,21 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 ## 👤 Author
 
 **Light Bulb Experiments** © 2026
+
+## 🙏 Acknowledgments
+
+- Built with ☕ and ❤️
+- Inspired by the need for a simple, powerful CLI calculator
+- Thanks to all users who made this better
+
+## ⭐ Show Your Support
+
+If you find NexusCalc useful, please consider:
+
+- ⭐ Starring the repository on GitHub
+- 🐛 Reporting issues
+- 💡 Suggesting features
+- 🔧 Contributing code
 
 ---
 

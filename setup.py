@@ -7,7 +7,7 @@ import re
 # Read version from __init__.py
 with open("src/nexuscalc/__init__.py", "r", encoding="utf-8") as f:
     version_match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', f.read())
-    version = version_match.group(1) if version_match else "2.6.0"
+    version = version_match.group(1) if version_match else "3.0.0.post1"
 
 # Read README
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -50,7 +50,7 @@ setup(
             "nexuscalc=nexuscalc:start_calc",
         ],
     },
-    keywords="calculator, math, arithmetic, cli, interactive, terminal, python, modulo, exponent, square-root",
+    keywords="calculator, math, arithmetic, cli, interactive, terminal, python, modulo, exponent, square-root, nth-root",
     license="MIT",
     platforms=["Windows", "macOS", "Linux"],
 )

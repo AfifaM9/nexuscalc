@@ -46,10 +46,20 @@ class Operations:
     
     @staticmethod
     def square_root(a):
-        """Square root operation."""
         if a < 0:
             raise CalculatorError("Cannot take square root of a negative number!")
         return math.sqrt(a)
+    
+    @staticmethod
+    def nth_root(a, n):
+        """Nth root operation - returns the nth root of a."""
+        if n == 0:
+            raise CalculatorError("Root cannot be zero!")
+        if a < 0 and n % 2 == 0:
+            raise CalculatorError("Cannot take even root of a negative number!")
+        if a < 0:
+            return -abs(a) ** (1/n)
+        return a ** (1/n)
     
     @staticmethod
     def safe_divide(a, b):
@@ -85,5 +95,18 @@ class Operations:
             if a < 0:
                 return None
             return math.sqrt(a)
+        except Exception:
+            return None
+    
+    @staticmethod
+    def safe_nth_root(a, n):
+        try:
+            if n == 0:
+                return None
+            if a < 0 and n % 2 == 0:
+                return None
+            if a < 0:
+                return -abs(a) ** (1/n)
+            return a ** (1/n)
         except Exception:
             return None
