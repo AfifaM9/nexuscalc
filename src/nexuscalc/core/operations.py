@@ -41,6 +41,11 @@ class Operations:
         return a % b
     
     @staticmethod
+    def exponent(a, b):
+        """Exponent operation - raises a to the power of b."""
+        return a ** b
+    
+    @staticmethod
     def safe_divide(a, b):
         try:
             return a / b
@@ -56,8 +61,14 @@ class Operations:
     
     @staticmethod
     def safe_modulo(a, b):
-        """Safe modulo that returns None on error."""
         try:
             return a % b
         except ZeroDivisionError:
+            return None
+    
+    @staticmethod
+    def safe_exponent(a, b):
+        try:
+            return a ** b
+        except Exception:
             return None

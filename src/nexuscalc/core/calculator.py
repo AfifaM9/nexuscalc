@@ -21,12 +21,13 @@ class NexusCalc:
             '4': ('Divide', self.operations.divide, '÷'),
             '5': ('Floor', self.operations.floor_divide, '//'),
             '6': ('Modulo', self.operations.modulo, '%'),
+            '7': ('Exponent', self.operations.exponent, '^'),
         }
         # Regex patterns for quit commands
         self.quit_patterns = [
             re.compile(r'^[Qq]$'),
             re.compile(r'^[Qq][Uu][Ii][Tt]$'),
-            re.compile(r'^7$'),  # 7 is now quit
+            re.compile(r'^8$'),  # 8 is now quit
         ]
         # Help patterns
         self.help_patterns = [
@@ -70,11 +71,12 @@ class NexusCalc:
         print("  4. Divide ➗     - Divide first by second")
         print("  5. Floor 🏠     - Floor division (integer result)")
         print("  6. Modulo 🔢    - Remainder after division")
-        print("  7. Quit 🚪      - Exit calculator")
+        print("  7. Exponent ⚡   - Raise first to the power of second")
+        print("  8. Quit 🚪      - Exit calculator")
         print()
         print("🎮 HOW TO USE:")
         print("-"*60)
-        print("  1. Choose an operation (1-7)")
+        print("  1. Choose an operation (1-8)")
         print("  2. Enter your first number")
         print("  3. Enter your second number")
         print("  4. See the result!")
@@ -82,7 +84,7 @@ class NexusCalc:
         print("⌨️  SPECIAL COMMANDS:")
         print("-"*60)
         print("  • 'h' or 'help' or '?'  - Show this help screen")
-        print("  • 'q' or 'quit' or '7'  - Exit the calculator")
+        print("  • 'q' or 'quit' or '8'  - Exit the calculator")
         print("  • Ctrl+C                 - Cancel current operation")
         print("  • Ctrl+D                 - Exit calculator")
         print()
@@ -91,6 +93,7 @@ class NexusCalc:
         print("  ✅ Accurate floating-point calculations")
         print("  ✅ Division by zero error handling")
         print("  ✅ Modulo operation")
+        print("  ✅ Exponent operation")
         print("  ✅ Calculation counter")
         print("  ✅ Clean result formatting")
         print("  ✅ Keyboard interrupt handling")
@@ -115,7 +118,7 @@ class NexusCalc:
             while self.running:
                 try:
                     self.show_menu()
-                    choice = self.get_input("Use 1-7").strip()
+                    choice = self.get_input("Use 1-8").strip()
                     
                     if self.is_help_command(choice):
                         self.show_help()
@@ -128,7 +131,7 @@ class NexusCalc:
                         break
                     
                     if choice not in self.menu_options:
-                        print("❌ Invalid choice. Please select 1-7, h/help, or q/quit.")
+                        print("❌ Invalid choice. Please select 1-8, h/help, or q/quit.")
                         continue
                     
                     operation_name, operation_func, operation_symbol = self.menu_options[choice]
@@ -193,11 +196,12 @@ class NexusCalc:
         print("4. Divide ➗")
         print("5. Floor 🏠")
         print("6. Modulo 🔢")
-        print("7. Quit 🚪")
+        print("7. Exponent ⚡")
+        print("8. Quit 🚪")
         print()
         print("💡 Type 'h' or 'help' for help")
         print("💡 Press Ctrl+C to cancel operation")
-        print("💡 Type '7', 'q', 'Q', 'quit', or 'QUIT' to exit")
+        print("💡 Type '8', 'q', 'Q', 'quit', or 'QUIT' to exit")
         print("-"*50)
     
     def show_goodbye(self):
