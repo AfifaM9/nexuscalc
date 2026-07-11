@@ -7,7 +7,7 @@ import re
 # Read version from __init__.py
 with open("src/nexuscalc/__init__.py", "r", encoding="utf-8") as f:
     version_match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', f.read())
-    version = version_match.group(1) if version_match else "3.2.0b1"
+    version = version_match.group(1) if version_match else "3.2.0b2"
 
 # Read README
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -29,6 +29,7 @@ setup(
     },
     package_dir={"": "src"},
     packages=find_packages(where="src"),
+    include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: End Users/Desktop",

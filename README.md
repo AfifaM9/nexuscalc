@@ -11,11 +11,6 @@ A powerful interactive CLI calculator that just works.
 
 > **NexusCalc** - because sometimes you need to calculate things and your brain said "no."
 
-> [!CAUTION]
-> **Beta Version Warning**
-> This is a beta release (3.2.0-beta). Features may be unstable or change before the stable release.
-> For production use, please install the latest stable version (3.0.0).
-
 ## ✨ Features
 
 - ➕ **Addition** - Add two numbers
@@ -37,13 +32,6 @@ A powerful interactive CLI calculator that just works.
 - 💡 **Built-in help** - Type `h` or `help` for documentation
 - 🧠 **Keyboard interrupts** - Ctrl+C gracefully handled
 
-> [!NOTE]
-> **New in 3.2.0-beta**
-> - Added Percentage operation (option 10)
-> - Added Factorial operation (option 11)
-> - Quit moved to option 12
-> - Added `readme()` function for easy documentation access
-
 ## 📦 Installation
 
 ### Stable Version (Recommended)
@@ -53,11 +41,8 @@ python -m pip install nexuscalc
 
 ### Beta Version (For Testing)
 ```bash
-python -m pip install nexuscalc==3.2.0-beta
+python -m pip install nexuscalc==3.2.0b2
 ```
-
-> [!WARNING]
-> The beta version may contain bugs. Please report any issues on GitHub.
 
 ## 🚀 Usage
 
@@ -231,10 +216,6 @@ NEXUSCALC > 0
 💡 Hint: You cannot divide by zero. Please try a different number.
 ```
 
-> [!IMPORTANT]
-> **Factorial Limitation**
-> Factorial is only defined for non-negative integers up to 100 to prevent overflow.
-
 ## 📊 Why NexusCalc?
 
 | Feature | NexusCalc | Other Calculators |
@@ -258,18 +239,14 @@ NEXUSCALC > 0
 
 | Version | Status | Changes |
 |---------|--------|---------|
-| **3.2.0-beta** | 🔄 **BETA** | Added Percentage, Factorial, Quit→12 |
+| **3.2.0b2** | 🔄 **BETA** | Fixed README inclusion, readme() function |
+| **3.2.0b1** | 🔄 BETA | Added Percentage, Factorial, Quit→12 |
 | **3.0.0** | ✅ STABLE | Added Nth Root, Quit→10 |
 | **2.6.0** | ✅ STABLE | Added Square Root, Quit→9 |
 | **2.5.0** | ✅ STABLE | Added Exponent, Quit→8 |
 | **2.1.0** | ✅ STABLE | Added Modulo, Quit→7 |
 | **2.0.0** | ✅ STABLE | Removed `calculate()`, `start_calc()` only |
 | **1.1.0** | ✅ STABLE | Added `start_calc()` |
-| **1.0.0** | ✅ STABLE | Initial release |
-
-> [!CAUTION]
-> **Version 3.2.0-beta is a pre-release.**
-> Please test and report any issues before the stable release.
 
 ## 🧪 Development
 
