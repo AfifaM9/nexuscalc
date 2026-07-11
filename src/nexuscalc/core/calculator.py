@@ -32,7 +32,7 @@ class NexusCalc:
         self.quit_patterns = [
             re.compile(r'^[Qq]$'),
             re.compile(r'^[Qq][Uu][Ii][Tt]$'),
-            re.compile(r'^12$'),  # 12 is now quit
+            re.compile(r'^12$'),  # 12 is quit - stays the same
         ]
         # Help patterns
         self.help_patterns = [
